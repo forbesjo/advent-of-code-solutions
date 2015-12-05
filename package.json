@@ -1,5 +1,5 @@
 {
-  "name": "advent of code problems",
+  "name": "advent-of-code-problems",
   "scripts": {
     "test": "mocha day1/test.js day2/test.js"
   },
