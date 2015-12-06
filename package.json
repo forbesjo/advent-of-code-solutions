@@ -1,7 +1,7 @@
 {
   "name": "advent-of-code-problems",
   "scripts": {
-    "test": "mocha day1/test.js day2/test.js"
+    "test": "mocha test.js"
   },
   "author": "Joe Forbes <joseph.a.forbes@gmail.com> (https://github.com/forbesjo)",
   "license": "ISC",
