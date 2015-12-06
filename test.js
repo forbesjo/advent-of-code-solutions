@@ -64,8 +64,7 @@ describe('day2', function() {
     });
   });
 
-
-describe('part2', function() {
+  describe('part2', function() {
     it('A present with dimensions 2x3x4 requires 2+2+3+3 = 10 feet of ribbon to wrap the present plus 2*3*4 = 24 feet of ribbon for the bow, for a total of 34 feet.', function() {
       assert.equal(solve.day2part2(['2x3x4']), 34);
     });
@@ -78,5 +77,26 @@ describe('part2', function() {
       assert.equal(solve.day2part2(fs.readFileSync('day2-input.txt').toString().split('\n')), 3812909);
     });
   });
+});
 
+describe('day3', function() {
+  describe('part1', function() {
+    it('> delivers presents to 2 houses: one at the starting location, and one to the east.', function() {
+      assert.equal(solve.day3part1('>'), 2);
+    });
+
+    it('^>v< delivers presents to 4 houses in a square, including twice to the house at his starting/ending location.', function() {
+      assert.equal(solve.day3part1('^>v<'), 4);
+    });
+
+    it('^v^v^v^v^v delivers a bunch of presents to some very lucky children at only 2 houses.', function() {
+      assert.equal(solve.day3part1('^v^v^v^v^v'), 2);
+    });
+
+    it('solve the problem', function() {
+      assert.equal(solve.day3part1(fs.readFileSync('day3-input.txt').toString()), 2565);
+    });
+  });
+
+  describe('part2', function() {});
 });

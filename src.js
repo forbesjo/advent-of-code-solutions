@@ -1,31 +1,4 @@
-// number[] -> number
-function min(list) {
-  if (list.length)
-    return list.reduce(function(acc, x) {
-      return x < acc ? x : acc;
-    }, list[0]);
-}
-
-// number[] -> number
-function sum(list) {
-  return list.reduce(function(acc, x) {
-    return x + acc;
-  }, 0);
-}
-
-// any[] -> any[][]
-function pairs(list) {
-  return list.reduce(function(allPairs, element, index) {
-    if (index !== list.length - 1) {
-      return allPairs.concat(list.slice(index + 1).reduce(function(acc, x) {
-        acc.push([element, x]);
-        return acc;
-      }, []));
-    }
-
-    return allPairs;
-  }, []);
-}
+var _ = require('./helpers');
 
 module.exports = {
   // string -> number
@@ -56,27 +29,27 @@ module.exports = {
 
   // string[] -> number
   day2part1: function(input) {
-    return sum(input
+    return _.sum(input
       .filter(function(x) {
         return x;
       })
       .map(function(dimensions) {
         var
-          surfaceAreas = pairs(dimensions.split('x')).map(function(pair) {
+          surfaceAreas = _.pairs(dimensions.split('x')).map(function(pair) {
             return pair[0] * pair[1];
           }),
 
-          totalSurfaceArea = sum(surfaceAreas.map(function(x) {
+          totalSurfaceArea = _.sum(surfaceAreas.map(function(x) {
             return x * 2;
           }));
 
-        return totalSurfaceArea + min(surfaceAreas);
+        return totalSurfaceArea + _.min(surfaceAreas);
       }));
   },
 
   // string[] -> number
   day2part2: function(input) {
-    return sum(input
+    return _.sum(input
       .filter(function(x) {
         return x;
       })
@@ -86,10 +59,10 @@ module.exports = {
             return x * 1;
           }),
 
-          shortestEdge = min(edges),
+          shortestEdge = _.min(edges),
 
           shortestEdgeIndex = edges.indexOf(shortestEdge),
-          shortEdge = min(edges.filter(function(x, i) {
+          shortEdge = _.min(edges.filter(function(x, i) {
             return i !== shortestEdgeIndex;
           })),
 
@@ -101,5 +74,22 @@ module.exports = {
 
         return wrap + bow;
       }));
+  },
+
+  // string -> number
+  day3part1: function(input) {
+    return Object.keys(_.group(input
+      .split('')
+      .reduce(function(acc, direction) {
+        var prevPos = acc[acc.length - 1];
+        acc.push(_.move(prevPos, direction));
+        return acc;
+      }, [{
+        x: 0,
+        y: 0
+      }])
+      .map(function(pos) {
+        return pos.x + ',' + pos.y;
+      }))).length;
   }
 };
