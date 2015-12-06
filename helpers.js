@@ -62,5 +62,36 @@ module.exports = {
       x: prevPos.x + x,
       y: prevPos.y + y
     };
+  },
+
+  divide: function(list, condition) {
+    return list.reduce(function(acc, x, i) {
+      if (condition(x, i)) {
+        acc.included.push(x);
+      } else {
+        acc.excluded.push(x);
+      }
+
+      return acc;
+    }, {
+      included: [],
+      excluded: []
+    });
+  },
+
+  // string[] -> string[]
+  track: function(list) {
+    var t = this;
+    return list.reduce(function(acc, direction) {
+        var prevPos = acc[acc.length - 1];
+        acc.push(t.move(prevPos, direction));
+        return acc;
+      }, [{
+        x: 0,
+        y: 0
+      }])
+      .map(function(pos) {
+        return pos.x + ',' + pos.y;
+      });
   }
 };

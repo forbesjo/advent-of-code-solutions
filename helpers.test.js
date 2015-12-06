@@ -88,4 +88,38 @@ describe('helpers', function() {
       y: 0
     }, 'invalid');
   });
+
+  it('divide', function() {
+    assert.deepEqual(_.divide([0, 1, 2, 3], function(x) {
+      return x === 2;
+    }), {
+      included: [2],
+      excluded: [0, 1, 3]
+    }, 'mix');
+
+    assert.deepEqual(_.divide([0, 1, 2, 3], function(x, i) {
+      return i % 2;
+    }), {
+      included: [1, 3],
+      excluded: [0, 2]
+    }, 'mix index');
+
+    assert.deepEqual(_.divide([0, 1, 2, 3], function() {
+      return true;
+    }), {
+      included: [0, 1, 2, 3],
+      excluded: []
+    }, 'only includes');
+
+    assert.deepEqual(_.divide([0, 1, 2, 3], function(x) {
+      return false;
+    }), {
+      included: [],
+      excluded: [0, 1, 2, 3]
+    }, 'only excludes');
+  });
+
+  it('track', function() {
+    assert.deepEqual(_.track(['>', '>', '<', 'v']), ['0,0', '1,0', '2,0', '1,0', '1,-1'], '');
+  });
 });

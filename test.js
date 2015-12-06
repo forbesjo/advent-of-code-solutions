@@ -98,5 +98,21 @@ describe('day3', function() {
     });
   });
 
-  describe('part2', function() {});
+  describe('part2', function() {
+    it('^v delivers presents to 3 houses, because Santa goes north, and then Robo-Santa goes south.', function() {
+      assert.equal(solve.day3part2('^v'), 3);
+    });
+
+    it('^v^v^v^v^v now delivers presents to 11 houses, with Santa going one direction and Robo-Santa going the other.', function() {
+      assert.equal(solve.day3part2('^v^v^v^v^v'), 11);
+    });
+
+    it('^>v< now delivers presents to 3 houses, and Santa and Robo-Santa end up back where they started.', function() {
+      assert.equal(solve.day3part2('^>v<'), 3);
+    });
+
+    it('solve the problem', function() {
+      assert.equal(solve.day3part2(fs.readFileSync('day3-input.txt').toString()), 2639);
+    });
+  });
 });

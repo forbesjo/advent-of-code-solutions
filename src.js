@@ -78,18 +78,20 @@ module.exports = {
 
   // string -> number
   day3part1: function(input) {
-    return Object.keys(_.group(input
-      .split('')
-      .reduce(function(acc, direction) {
-        var prevPos = acc[acc.length - 1];
-        acc.push(_.move(prevPos, direction));
-        return acc;
-      }, [{
-        x: 0,
-        y: 0
-      }])
-      .map(function(pos) {
-        return pos.x + ',' + pos.y;
-      }))).length;
+    return Object.keys(_.group(_.track(input
+      .split('')))).length;
+  },
+
+  // string -> number
+  day3part2: function(input) {
+    var
+      santas = _.divide(input.split(''), function(dir, i) {
+        return i % 2;
+      }),
+      robotTrack = _.track(santas.included),
+      santaTrack = _.track(santas.excluded);
+
+    return Object.keys(_.group(santaTrack.concat(robotTrack))).length;
   }
+
 };
